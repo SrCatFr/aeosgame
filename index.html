@@ -1,16 +1,209 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aeo$ Games - Invitación</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  Hello world
-  <script src="script.js"></script>
-</body>
+    <!-- Audio en loop y autoplay -->
+    <audio id="bgMusic" loop autoplay>
+        <source src= "Pink-Soldiers.mp3" type="audio/mpeg">
+    </audio>
 
+    <div class="stars"></div>
+    <div class="container">
+        <!-- Tarjeta de Invitación -->
+        <div class="invitation-card">
+            <div class="card-front">
+                <div class="symbols-wrapper">
+                    <div class="symbol circle"></div>
+                    <div class="symbol triangle"></div>
+                    <div class="symbol square"></div>
+                </div>
+                <div class="card-content">
+                    <h1 class="title">Aeo$ Games</h1>
+                    <p class="subtitle">Has sido invitado a jugar</p>
+                    <div class="details">
+                        <p class="code">CÓDIGO: #45692</p>
+                        <p class="validity">VÁLIDO HASTA: 01.15.2025</p>
+                    </div>
+                    <button class="accept-btn" onclick="showTerms()">
+                        Aceptar Invitación
+                        <span class="btn-glow"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla de Términos -->
+        <div class="terms-screen hidden" id="termsScreen">
+            <div class="terms-content">
+                <h2>Términos y Condiciones</h2>
+                <div class="terms-text">
+                    <p>1. Al participar en Aeo$ Games, aceptas todas las reglas establecidas.</p>
+                    <p>2. El premio es intransferible y no reembolsable.</p>
+                    <p>3. La participación es voluntaria y bajo tu propio riesgo.</p>
+                    <p>4. Debes mantener la confidencialidad del juego.</p>
+                </div>
+                <button class="accept-btn" onclick="acceptTerms()">
+                    Acepto los Términos
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Cuenta Regresiva -->
+        <div class="countdown-screen hidden" id="countdownScreen">
+            <div class="countdown-content">
+                <h2>Preparándote para Aeo$ Games</h2>
+                <div class="countdown" id="countdown">00:00:00</div>
+                <div class="discord-info">
+                    <p>Únete a nuestro Discord:</p>
+                    <a href="https://discord.gg/aeolouscm" class="discord-link">Discord Server</a>
+                </div>
+                <button class="accept-btn" onclick="showPrizes()">
+                    Ver Premio
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Premio -->
+        <div class="prizes-screen hidden" id="prizesScreen">
+            <div class="prizes-container">
+                <h2 class="prizes-title">Premio Final</h2>
+                <div class="prize-cards">
+                    <!-- Premio Principal -->
+                    <div class="prize-card main-prize">
+                        <div class="prize-banner">PREMIO PRINCIPAL</div>
+                        <div class="prize-amount">$500,000 (ECONOMIA)</div>
+                        <div class="prize-details">
+                            <h3>Gran Premio</h3>
+                            <ul>
+                                <li>50 Robux</li>
+                                <li>Rango Exclusivo Permanente</li>
+                                <li>Acceso al Almacem</li>
+                                <li>Cuentas de Streaming</li>
+                            </ul>
+                        </div>
+                        <div class="prize-symbol">
+                            <div class="symbol triangle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inicializar audio
+        window.onload = function() {
+            const audio = document.getElementById('bgMusic');
+            audio.volume = 0.3; // Volumen al 30%
+
+            // Reiniciar música cuando termine
+            audio.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+        };
+
+        function showTerms() {
+            document.getElementById('termsScreen').classList.remove('hidden');
+        }
+
+        function acceptTerms() {
+            document.getElementById('termsScreen').classList.add('hidden');
+            document.getElementById('countdownScreen').classList.remove('hidden');
+            startCountdown();
+        }
+
+        function showPrizes() {
+            document.getElementById('prizesScreen').classList.remove('hidden');
+        }
+
+        function startCountdown() {
+            // Fecha objetivo: 6 de enero de 2025, 1:00 PM GMT-8
+            // Nota: Los meses en JavaScript van de 0-11, por eso enero es 0
+            const eventDate = new Date(Date.UTC(2025, 0, 6, 21, 0, 0)); // 1:00 PM GMT-8 = 21:00 UTC
+
+            const countdownElement = document.getElementById('countdown');
+
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = eventDate.getTime() - now;
+
+                // Cálculos para el tiempo restante
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Formato con ceros a la izquierda para mejor visualización
+                const formatNumber = (num) => num.toString().padStart(2, '0');
+
+                // Actualizar el contador con formato mejorado
+                countdownElement.innerHTML = `
+                    <div class="time-block">
+                        <span class="time-number">${formatNumber(days)}</span>
+                        <span class="time-label">días</span>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-block">
+                        <span class="time-number">${formatNumber(hours)}</span>
+                        <span class="time-label">horas</span>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-block">
+                        <span class="time-number">${formatNumber(minutes)}</span>
+                        <span class="time-label">min</span>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-block">
+                        <span class="time-number">${formatNumber(seconds)}</span>
+                        <span class="time-label">seg</span>
+                    </div>
+                `;
+
+                // Cuando termine la cuenta regresiva
+                if (distance < 0) {
+                    clearInterval(timer);
+                    countdownElement.innerHTML = `
+                        <div class="event-started">
+                            ¡El evento ha comenzado!
+                        </div>
+                    `;
+                    showPrivateServer();
+                }
+            }, 1000);
+        }
+
+        function showPrivateServer() {
+            const countdownContent = document.querySelector('.countdown-content');
+            const serverInfo = document.createElement('div');
+            serverInfo.className = 'private-server';
+            serverInfo.innerHTML = `
+                <h3>¡Servidor Privado Desbloqueado!</h3>
+                <div class="server-code">AEO$-2025-XXXX</div>
+                <a href="https://www.roblox.com/share?code=927736f85ede9a41bc1feda34abe9abb&type=Server" target="_blank" class="accept-btn">
+                    Unirse al Servidor
+                    <span class="btn-glow"></span>
+                </a>
+            `;
+            countdownContent.appendChild(serverInfo);
+        }
+
+        // Cerrar sección de premios con ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('prizesScreen').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
 </html>

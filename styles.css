@@ -1,0 +1,1037 @@
+:root {
+  --primary: #ff2d78;
+  --primary-dark: #e6175e;
+  --primary-light: #ff619b;
+  --background: #0a0a0a;
+  --text: #ffffff;
+  --accent: #45f7ff;
+  --card-bg: rgba(10, 10, 10, 0.95);
+  --neon-glow: 0 0 10px rgba(255, 45, 120, 0.5),
+               0 0 20px rgba(255, 45, 120, 0.3),
+               0 0 30px rgba(255, 45, 120, 0.1);
+}
+
+/* Reset y estilos base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Efecto de estrellas en el fondo */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at center,
+              rgba(255, 45, 120, 0.1) 0%,
+              transparent 60%);
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  z-index: 1;
+}
+
+/* Tarjeta de invitación */
+.invitation-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.card-front {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: var(--neon-glow);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+/* Símbolos */
+.symbols-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.symbol {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.circle {
+  border: 3px solid var(--text);
+  border-radius: 50%;
+}
+
+.triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: var(--text);
+}
+
+.square {
+  border: 3px solid var(--text);
+}
+
+.symbol:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 0 10px var(--primary));
+}
+
+/* Contenido de la tarjeta */
+.card-content {
+  text-align: center;
+}
+
+.title {
+  font-size: 3.5em;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--neon-glow);
+}
+
+.subtitle {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.details {
+  margin-bottom: 30px;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.code, .validity {
+  margin: 5px 0;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+/* Botón */
+.accept-btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--text);
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+  );
+  transition: 0.6s;
+}
+
+.accept-btn:hover {
+  transform: translateY(-2px);
+}
+
+.accept-btn:hover .btn-glow {
+  left: 100%;
+}
+
+/* Pantalla de términos */
+.terms-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.5s ease;
+}
+
+.terms-content {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--neon-glow);
+}
+
+.terms-text {
+  margin: 30px 0;
+}
+
+.terms-text p {
+  margin: 15px 0;
+  line-height: 1.6;
+}
+
+/* Pantalla de cuenta regresiva */
+.countdown-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.5s ease;
+}
+
+.countdown-content {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: var(--neon-glow);
+}
+
+.countdown {
+  font-size: 4em;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--primary);
+  margin: 30px 0;
+  text-shadow: var(--neon-glow);
+}
+
+/* Discord info */
+.discord-info {
+  margin-top: 30px;
+}
+
+.discord-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.discord-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Utilidades */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .card-front {
+      padding: 30px;
+  }
+
+  .symbols-wrapper {
+      gap: 20px;
+  }
+
+  .symbol {
+      width: 60px;
+      height: 60px;
+  }
+
+  .title {
+      font-size: 2.5em;
+  }
+
+  .subtitle {
+      font-size: 1.2em;
+  }
+
+  .countdown {
+      font-size: 3em;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-front {
+      padding: 20px;
+  }
+
+  .symbols-wrapper {
+      gap: 15px;
+  }
+
+  .symbol {
+      width: 50px;
+      height: 50px;
+  }
+
+  .title {
+      font-size: 2em;
+  }
+
+  .subtitle {
+      font-size: 1em;
+  }
+
+  .countdown {
+      font-size: 2.5em;
+  }
+
+  .accept-btn {
+      padding: 12px 30px;
+      font-size: 1em;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.05);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Estilos para la sección de premios */
+.prizes-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.5s ease;
+    overflow-y: auto;
+    padding: 40px 20px;
+}
+
+.prizes-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.prizes-title {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--neon-glow);
+}
+
+.prize-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.prize-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.prize-card:hover {
+    transform: translateY(-10px);
+}
+
+.main-prize {
+    grid-column: span 1;
+    background: linear-gradient(145deg, rgba(255, 45, 120, 0.1), rgba(69, 247, 255, 0.1));
+    border: 2px solid var(--primary);
+}
+
+.prize-banner {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    transform: rotate(45deg);
+    background: var(--primary);
+    padding: 5px 40px;
+    font-size: 0.8em;
+    font-weight: bold;
+    box-shadow: var(--neon-glow);
+}
+
+.prize-amount {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 30px 0;
+    color: var(--primary);
+    text-shadow: var(--neon-glow);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.prize-details {
+    margin-bottom: 20px;
+}
+
+.prize-details h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+.prize-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.prize-details li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.prize-details li:last-child {
+    border-bottom: none;
+}
+
+.prize-symbol {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.2;
+    transform: scale(0.6);
+}
+
+/* Premios adicionales */
+.additional-prizes {
+    margin-top: 50px;
+    padding: 30px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.additional-prizes h3 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: var(--text);
+}
+
+.prize-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.mini-prize {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.mini-prize:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.prize-icon {
+    font-size: 2em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.mini-prize h4 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.mini-prize p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+}
+
+/* Animaciones para los premios */
+@keyframes prizeGlow {
+    0% {
+        box-shadow: 0 0 10px var(--primary);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--primary),
+                    0 0 30px var(--primary);
+    }
+    100% {
+        box-shadow: 0 0 10px var(--primary);
+    }
+}
+
+.main-prize {
+    animation: prizeGlow 3s infinite;
+}
+
+/* Media Queries para premios */
+@media (max-width: 768px) {
+    .prizes-title {
+        font-size: 2em;
+    }
+
+    .prize-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .prize-amount {
+        font-size: 2em;
+    }
+
+    .prize-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .prizes-container {
+        padding: 20px;
+    }
+
+    .prize-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prize-amount {
+        font-size: 1.8em;
+    }
+}/* Estilos para el contador mejorado */
+.countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto Mono', monospace;
+    margin: 30px 0;
+    background: rgba(255, 45, 120, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 45, 120, 0.2);
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.time-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--primary);
+    text-shadow: var(--neon-glow);
+    line-height: 1;
+}
+
+.time-label {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.time-separator {
+    font-size: 2em;
+    color: var(--primary);
+    opacity: 0.5;
+    margin-top: -10px;
+}
+
+.event-started {
+    font-size: 2em;
+    color: var(--primary);
+    text-shadow: var(--neon-glow);
+    animation: pulseText 2s infinite;
+}
+
+@keyframes pulseText {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* Media queries para el contador */
+@media (max-width: 768px) {
+    .countdown {
+        gap: 5px;
+        padding: 15px;
+    }
+
+    .time-block {
+        min-width: 60px;
+    }
+
+    .time-number {
+        font-size: 2em;
+    }
+
+    .time-label {
+        font-size: 0.7em;
+    }
+
+    .time-separator {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown {
+        gap: 3px;
+        padding: 10px;
+    }
+
+    .time-block {
+        min-width: 50px;
+    }
+
+    .time-number {
+        font-size: 1.5em;
+    }
+
+    .time-label {
+        font-size: 0.6em;
+    }
+
+    .time-separator {
+        font-size: 1.2em;
+    }
+}
+/* Efectos de neón mejorados */
+:root {
+    --neon-primary: #ff2d78;
+    --neon-secondary: #45f7ff;
+    --neon-glow-intense: 0 0 10px var(--neon-primary),
+                         0 0 20px var(--neon-primary),
+                         0 0 30px var(--neon-primary),
+                         0 0 40px var(--neon-primary);
+    --glass-effect: rgba(255, 255, 255, 0.1);
+}
+
+/* Botón premium mejorado */
+.accept-btn {
+    position: relative;
+    background: linear-gradient(45deg, var(--neon-primary), var(--primary-dark));
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    color: var(--white);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.accept-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    z-index: -1;
+}
+
+.accept-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--neon-glow-intense);
+}
+
+.accept-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.accept-btn:active {
+    transform: translateY(-2px);
+}
+
+/* Efecto de hover en símbolos mejorado */
+.symbol {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.symbol::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: inherit;
+    background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.symbol:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
+.symbol:hover::after {
+    opacity: 0.5;
+    animation: symbolPulse 2s infinite;
+}
+
+@keyframes symbolPulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.2; }
+    100% { transform: scale(1); opacity: 0.5; }
+}
+
+/* Efectos de cristal mejorados */
+.card-front, .terms-content, .countdown-content {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-effect);
+    box-shadow: 0 0 30px rgba(255, 45, 120, 0.2);
+}
+
+/* Animación de título mejorada */
+.title {
+    position: relative;
+    animation: titleGlow 3s infinite;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 10px var(--neon-primary); }
+    50% { text-shadow: 0 0 20px var(--neon-primary), 0 0 30px var(--neon-primary); }
+    100% { text-shadow: 0 0 10px var(--neon-primary); }
+}
+
+/* Efecto de partículas en el fondo */
+.stars::before,
+.stars::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.stars::before {
+    background: radial-gradient(circle at center,
+        rgba(255, 45, 120, 0.1) 0%,
+        transparent 60%);
+    animation: starsPulse 4s infinite;
+}
+
+.stars::after {
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, var(--neon-primary) 50%, transparent),
+        radial-gradient(2px 2px at 40px 70px, var(--neon-secondary) 50%, transparent),
+        radial-gradient(2px 2px at 50px 160px, var(--neon-primary) 50%, transparent),
+        radial-gradient(2px 2px at 90px 40px, var(--neon-secondary) 50%, transparent),
+        radial-gradient(2px 2px at 130px 80px, var(--neon-primary) 50%, transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: starsMove 100s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes starsPulse {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.3; }
+}
+
+@keyframes starsMove {
+    from { background-position: 0 0; }
+    to { background-position: 400px 400px; }
+}
+
+/* Efecto hover en links mejorado */
+.discord-link {
+    position: relative;
+    background: linear-gradient(45deg, 
+        rgba(255, 45, 120, 0.2),
+        rgba(69, 247, 255, 0.2));
+    padding: 12px 30px;
+    border-radius: 20px;
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.discord-link::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        var(--neon-primary),
+        var(--neon-secondary));
+    z-index: -1;
+    border-radius: 22px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.discord-link:hover {
+    transform: translateY(-3px);
+    color: var(--white);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.discord-link:hover::before {
+    opacity: 1;
+}
+
+/* Efecto de pulso en el contador */
+.countdown .time-number {
+    position: relative;
+    animation: numberPulse 2s infinite;
+}
+
+@keyframes numberPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Efecto de desenfoque en transiciones */
+.screen {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.screen.hidden {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+}
+
+/* Efectos de hover en cards */
+.prize-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.prize-card:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow: 0 20px 40px rgba(255, 45, 120, 0.3);
+}
+
+/* Efecto de brillo en bordes */
+.main-prize {
+    position: relative;
+    overflow: hidden;
+}
+
+.main-prize::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    transform: rotate(45deg);
+    animation: borderGlow 3s linear infinite;
+}
+
+@keyframes borderGlow {
+    0% { transform: rotate(45deg) translateX(-100%); }
+    100% { transform: rotate(45deg) translateX(100%); }
+}
+
+/* Efecto de tecla presionada */
+.accept-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 20px rgba(255, 45, 120, 0.5);
+}
+
+/* Efecto de carga */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Efecto de resplandor en hover */
+.glow-hover {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-hover::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.glow-hover:hover::after {
+    opacity: 1;
+}
+
+/* Scrollbar personalizado premium */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        45deg,
+        var(--neon-primary),
+        var(--neon-secondary)
+    );
+    border-radius: 5px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+        45deg,
+        var(--neon-secondary),
+        var(--neon-primary)
+    );
+}
